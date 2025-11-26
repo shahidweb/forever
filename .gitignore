@@ -1,6 +1,9 @@
 # Ignore Node modules everywhere
 node_modules/
 
+backend/node_modules/
+frontEnd/node_modules/
+
 folderStructure
 
 # Ignore frontend build folder
