@@ -25,3 +25,22 @@ export const fetchProductById = createAsyncThunk(
     }
   }
 );
+
+interface IRatingPayload {
+  productId: string;
+  rating: number;
+}
+
+export const setProductRating = createAsyncThunk(
+  `${EndPoint_URL.RATING}`,
+  async (data: IRatingPayload, { rejectWithValue }) => {
+    try {
+      const res = await api.post(`${EndPoint_URL.RATING}/${data.productId}`, {
+        rating: data.rating,
+      });
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
