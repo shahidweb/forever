@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "Summer Floral Dress",
+        "price": 40,
+        "image": "/src/assets/img/summerFloral.png",
+        "category": "women",
+        "type": "topwear"
+    },
+    {
+        "id": 2,
+        "name": "Casual Cotton Top",
+        "price": 50,
+        "image": "/src/assets/img/casualCotton.png",
+        "category": "women",
+        "type": "topwear"
+    },
+    {
+        "id": 3,
+        "name": "Denim Jacket",
+        "price": 55,
+        "image": "/src/assets/img/denimJacket.png",
+        "category": "men",
+        "type": "winterwear"
+    },
+    {
+        "id": 4,
+        "name": "Striped Skirt",
+        "price": 90,
+        "image": "/src/assets/img/skirt.png",
+        "category": "women",
+        "type": "bottomwear"
+    },
+    {
+        "id": 5,
+        "name": "Elegant Evening Gown",
+        "price": 60,
+        "image": "/src/assets/img/StripedEveningGown.png",
+        "category": "women",
+        "type": "topwear"
+    },
+    {
+        "id": 6,
+        "name": "Casual Shorts",
+        "price": 45,
+        "image": "/src/assets/img/casualShorts.png",
+        "category": "men",
+        "type": "bottomwear"
+    },
+    {
+        "id": 7,
+        "name": "Printed T-Shirt",
+        "price": 35,
+        "image": "/src/assets/img/printedT-Shirt.png",
+        "category": "kids",
+        "type": "topwear"
+    },
+    {
+        "id": 8,
+        "name": "Office Blazer",
+        "price": 75,
+        "image": "/src/assets/img/officeBlazer.png",
+        "category": "men",
+        "type": "winterwear"
+    },
+    {
+        "id": 9,
+        "name": "Silk Saree",
+        "price": 85,
+        "image": "/src/assets/img/saree.png",
+        "category": "women",
+        "type": "topwear"
+    },
+    {
+        "id": 10,
+        "name": "Leather Handbag",
+        "price": 30,
+        "image": "/src/assets/img/leatherHandbag.png",
+        "category": "women",
+        "type": "bottomwear"
+    }
+]

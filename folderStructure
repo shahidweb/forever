@@ -1,0 +1,87 @@
+src/
+├── api/                         # API logic & RTK Query slices
+│   ├── authApi.ts
+│   ├── productsApi.ts
+│   ├── ordersApi.ts
+│   └── usersApi.ts
+│
+├── app/                         # Global store and hooks
+│   ├── store.ts
+│   ├── hooks.ts
+│   └── rootReducer.ts
+│
+├── assets/                      # Images, fonts, logos
+│
+├── components/                  # Reusable shared UI components
+│   ├── ui/                      # Buttons, Inputs, Modals, Loaders
+│   ├── layout/                  # Common layouts (Header, Footer, Sidebar)
+│   └── shared/                  # Reusable across admin & customer
+│
+├── features/                    # Redux feature slices
+│   ├── auth/
+│   ├── cart/
+│   ├── products/
+│   ├── orders/
+│   └── users/
+│
+├── layouts/                     # Page layouts (wrappers)
+│   ├── CustomerLayout.tsx
+│   └── AdminLayout.tsx
+│
+├── modules/                     # Domain-specific pages separated by role
+│   ├── customer/
+│   │   ├── pages/
+│   │   │   ├── Home.tsx
+│   │   │   ├── ProductList.tsx
+│   │   │   ├── ProductDetail.tsx
+│   │   │   ├── Cart.tsx
+│   │   │   ├── Checkout.tsx
+│   │   │   ├── Orders.tsx
+│   │   │   └── Profile.tsx
+│   │   ├── components/
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── Banner.tsx
+│   │   │   └── CategoryList.tsx
+│   │   └── routes/
+│   │       └── CustomerRoutes.tsx
+│   │
+│   └── admin/
+│       ├── pages/
+│       │   ├── Dashboard.tsx
+│       │   ├── Products.tsx
+│       │   ├── ProductForm.tsx
+│       │   ├── Orders.tsx
+│       │   ├── Users.tsx
+│       │   └── Settings.tsx
+│       ├── components/
+│       │   ├── Sidebar.tsx
+│       │   ├── Header.tsx
+│       │   └── StatsCard.tsx
+│       └── routes/
+│           └── AdminRoutes.tsx
+│
+├── routes/                      # Centralized route configuration
+│   ├── AppRoutes.tsx            # Combines AdminRoutes + CustomerRoutes
+│   ├── ProtectedRoute.tsx
+│   └── RoleBasedRoute.tsx
+│
+├── types/                       # TypeScript interfaces and enums
+│   ├── product.ts
+│   ├── order.ts
+│   ├── user.ts
+│   └── common.ts
+│
+├── utils/                       # Helpers and constants
+│   ├── formatCurrency.ts
+│   ├── localStorage.ts
+│   ├── validation.ts
+│   └── constants.ts
+│
+├── hooks/                       # Custom reusable hooks
+│   ├── useAuth.ts
+│   ├── useCart.ts
+│   └── useDebounce.ts
+│
+├── main.tsx
+├── App.tsx
+└── index.css
