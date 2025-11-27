@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllProductList,
   fetchProductById,
+  setProductRating,
 } from "../../services/productServices";
 import type { IProduct } from "../../shared/types/interfaces";
 
@@ -48,6 +49,17 @@ const productSlice = createSlice({
       state.product = action.payload;
     });
     builder.addCase(fetchProductById.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload as string;
+    });
+    builder.addCase(setProductRating.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(setProductRating.fulfilled, (state, action) => {
+      state.loading = false;
+      state.product = action.payload;
+    });
+    builder.addCase(setProductRating.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
     });

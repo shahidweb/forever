@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchProductById } from "../../../services/productServices";
+import {
+  fetchProductById,
+  setProductRating,
+} from "../../../services/productServices";
 import {
   useAppDispatch,
   useAppSelector,
@@ -8,6 +11,7 @@ import {
 import Loader from "../components/Loader";
 import ProductTabs from "../components/ProductTabs";
 import ProductNotFound from "./ProductNotFound";
+import RatingStar from "../components/RatingStar";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +41,15 @@ const ProductDetails: React.FC = () => {
     });
   }, [id]);
 
+  const setRating = (rate: number) => {
+    if (!id || !product) return;
+    const payload = {
+      productId: id,
+      rating: rate,
+    };
+    dispatch(setProductRating(payload));
+  };
+
   if (!product) return <ProductNotFound />;
 
   return (
@@ -63,7 +76,7 @@ const ProductDetails: React.FC = () => {
           {/* Main Image */}
           <div className="flex-1 flex items-center justify-center">
             <img
-              src={mainImage}
+              src={mainImage ? mainImage : product.images[0]}
               alt={product.name}
               className="w-full max-h-[500px] object-cover rounded-lg shadow-md"
             />
@@ -78,7 +91,7 @@ const ProductDetails: React.FC = () => {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-yellow-500">★★★★★</span>
+            <RatingStar rating={product.rating} setRating={setRating} />
             <span className="text-gray-500 text-sm">
               ({product.ratingCount})
             </span>
