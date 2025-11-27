@@ -48,7 +48,6 @@ const ProductDetails: React.FC = () => {
       rating: rate,
     };
     dispatch(setProductRating(payload));
-    dispatch(fetchProductById(id));
   };
 
   if (!product) return <ProductNotFound />;
