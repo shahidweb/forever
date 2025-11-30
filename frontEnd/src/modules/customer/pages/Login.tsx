@@ -3,11 +3,11 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/ui/Button";
 import HeadingBanner from "../../../components/ui/HeadingBanner";
+import { loginUser, registerUser } from "../../../services/authServices";
 import {
   useAppDispatch,
   useAppSelector,
 } from "../../../shared/hooks/reduxHooks";
-import { loginUser } from "../../../services/authServices";
 
 type Inputs = {
   email: string;
@@ -29,9 +29,10 @@ const Login: React.FC = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(loginUser(data)).then((res: any) => {
+    const apiAction = isLogin ? loginUser(data) : registerUser(data);
+    dispatch(apiAction).then((res: any) => {
       if (res.meta.requestStatus === "fulfilled") {
-        navigate("/");
+        isLogin ? setIsLogin(!isLogin) : navigate("/");
       }
       reset();
     });
@@ -99,7 +100,9 @@ const Login: React.FC = () => {
             </span>
           </div>
           <div className="text-center">
-            <Button value={isLogin ? loading ? "Loading..." : "Sign In" : "Sign Up"} />
+            <Button
+              value={isLogin ? (loading ? "Loading..." : "Sign In") : "Sign Up"}
+            />
           </div>
         </form>
       </div>

@@ -1,18 +1,25 @@
 import { Rating } from "react-simple-star-rating";
+import { useAppSelector } from "../../../shared/hooks/reduxHooks";
+import type { IProduct } from "../../../shared/types/interfaces";
 
 interface IStarProps {
-  rating: number;
+  products: IProduct;
   setRating: (rate: number) => void;
 }
 
-function RatingStar({ rating, setRating }: IStarProps) {
+function RatingStar({ products, setRating }: IStarProps) {
+  const user = useAppSelector((state) => state.auth.user);
+  const isCurrentUser = products?.ratings?.some(
+    (item) => item.userId === user?.id
+  );
+
   return (
     <div>
       <Rating
         onClick={(rate) => setRating(rate)}
-        initialValue={rating}
+        initialValue={products.rating}
         size={25}
-        readonly={rating > 0}
+        readonly={isCurrentUser}
         SVGstyle={{ display: "inline-block" }}
         allowFraction={false} // whole-star only
       />

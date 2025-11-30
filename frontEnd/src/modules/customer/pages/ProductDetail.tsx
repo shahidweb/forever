@@ -91,7 +91,7 @@ const ProductDetails: React.FC = () => {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-2">
-            <RatingStar rating={product.rating} setRating={setRating} />
+            <RatingStar products={product}  setRating={setRating} />
             <span className="text-gray-500 text-sm">
               ({product.ratingCount})
             </span>

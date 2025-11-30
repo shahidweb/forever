@@ -49,7 +49,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, role },
+      { id: user._id, role, name: user.name, email: user.email },
       process.env.JWT_SECRET as string,
       {
         expiresIn: "7d",
@@ -59,7 +59,6 @@ export const login = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Login Successfully",
       data: {
-        user: { name: user.name, email: user.email, role },
         token,
       },
     });
