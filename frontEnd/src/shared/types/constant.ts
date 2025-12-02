@@ -37,37 +37,6 @@ export const filterTypes: FilterOption[] = [
 
 export const productSizes = ["S", "M", "L", "XL", "XXL"];
 
-export const cartItemsData = [
-  {
-    id: 1,
-    name: "Casual Cotton Top",
-    price: 50,
-    image: "/src/assets/img/casualCotton.png",
-    size: "M",
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Denim Jacket",
-    price: 55,
-    image: "/src/assets/img/denimJacket.png",
-    size: "S",
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "Elegant Evening Gown",
-    price: 60,
-    image: "/src/assets/img/StripedEveningGown.png",
-    size: "XL",
-    quantity: 1,
-  },
-];
-export const cartTotals = [
-  { id: 1, lable: "Subtotal", value: "294.00" },
-  { id: 2, lable: "Shipping Fee", value: "11.00" },
-  { id: 3, lable: "Total", value: "305.00" },
-];
 
 export const orders: OrderItem[] = [
     {

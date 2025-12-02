@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { addUpdateCartItems } from "../../../services/cartServices";
 import {
   fetchProductById,
   setProductRating,
@@ -10,8 +11,8 @@ import {
 } from "../../../shared/hooks/reduxHooks";
 import Loader from "../components/Loader";
 import ProductTabs from "../components/ProductTabs";
-import ProductNotFound from "./ProductNotFound";
 import RatingStar from "../components/RatingStar";
+import ProductNotFound from "./ProductNotFound";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +28,7 @@ const ProductDetails: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
+    console.log(product);
     if (product && product.images) {
       setMainImage(product.images[0]);
       setSelectedSize(product.sizes[0]);
@@ -51,6 +53,15 @@ const ProductDetails: React.FC = () => {
   };
 
   if (!product) return <ProductNotFound />;
+
+  const addCart = () => {
+    const payload = {
+      productId: product._id,
+      quantity: 1,
+      size: selectedSize,
+    };
+    dispatch(addUpdateCartItems(payload));
+  };
 
   return (
     <>
@@ -91,7 +102,7 @@ const ProductDetails: React.FC = () => {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-2">
-            <RatingStar products={product}  setRating={setRating} />
+            <RatingStar products={product} setRating={setRating} />
             <span className="text-gray-500 text-sm">
               ({product.ratingCount})
             </span>
@@ -126,7 +137,10 @@ const ProductDetails: React.FC = () => {
           </div>
 
           {/* Add to Cart */}
-          <button className="w-full md:w-auto px-10 py-3 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition cursor-pointer">
+          <button
+            onClick={addCart}
+            className="w-full md:w-auto px-10 py-3 bg-black text-white rounded-md font-semibold hover:bg-gray-800 transition cursor-pointer"
+          >
             ADD TO CART
           </button>
 

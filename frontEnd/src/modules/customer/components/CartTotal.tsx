@@ -1,33 +1,63 @@
 import { useEffect, useState } from "react";
-import HeadingBanner from "../../../components/ui/HeadingBanner";
-import Button from "../../../components/ui/Button";
-import { cartTotals } from "../../../shared/types/constant";
 import { Link } from "react-router-dom";
+import Button from "../../../components/ui/Button";
+import HeadingBanner from "../../../components/ui/HeadingBanner";
+import { useAppSelector } from "../../../shared/hooks/reduxHooks";
+
+// interface ICartTotal {
+//   isPaymentShow?: boolean;
+//   items: IProduct[];
+// }
+
+interface ITotalCart {
+  subTotal: number;
+  shipping: number;
+  total: number;
+}
 
 function CartTotal({ isPaymentShow = false }) {
   const [paymentMethod, setPaymentMethod] = useState<any>();
-  const [cartItems, setCartItems] = useState(cartTotals);
+  const [cartItems, setCartItems] = useState<ITotalCart>({} as ITotalCart);
+  const { items } = useAppSelector((state) => state.cart);
 
-  useEffect(()=>{
-    
-  })
+  useEffect(() => {
+    if (items && items.length == 0) return;
+
+    const subTotal = items.reduce(
+      (sum, item) => sum + item.productId.price * (item.quantity ?? 1),
+      0
+    );
+
+    const updated = {
+      subTotal: subTotal,
+      shipping: 11,
+      total: subTotal + 11,
+    };
+    setCartItems(updated);
+  }, [items]);
 
   return (
     <div>
       <HeadingBanner title="Cart" subtitle="Totals" />
       <div className="mb-10">
-        {cartItems &&
-          cartItems.map((item) => (
-            <div
-              key={item.id}
-              className={`${
-                item.id === 3 ? "font-semibold" : ""
-              } flex justify-between text-gray-700 pb-2 mb-3 border-b border-gray-200`}
-            >
-              <span>{item.lable}</span>
-              <span>${item.value}</span>
-            </div>
-          ))}
+        <div
+          className={`flex justify-between text-gray-700 pb-2 mb-3 border-b border-gray-200`}
+        >
+          <span>Subtotal</span>
+          <span>${cartItems.subTotal}</span>
+        </div>
+        <div
+          className={`flex justify-between text-gray-700 pb-2 mb-3 border-b border-gray-200`}
+        >
+          <span>Shipping Fee</span>
+          <span>${cartItems.shipping}</span>
+        </div>
+        <div
+          className={`flex justify-between font-semibold text-gray-700 pb-2 mb-3 border-b border-gray-200`}
+        >
+          <span>Total</span>
+          <span>${cartItems.total}</span>
+        </div>
       </div>
 
       {/* PAYMENT METHOD */}
