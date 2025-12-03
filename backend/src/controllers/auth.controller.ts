@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
     const user: IUser = await User.create({
       name,
       email,
-      role: role || "User",
+      role: role || ERoleType.USER,
       password: hashedPwd,
     });
 
@@ -25,7 +25,7 @@ export const register = async (req: Request, res: Response) => {
       data: {
         name: user.name,
         email: user.email,
-        role: role || "User",
+        role: role || ERoleType.USER,
       },
     });
   } catch (error: any) {
