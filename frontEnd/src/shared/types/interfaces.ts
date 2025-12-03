@@ -21,6 +21,8 @@ export interface IProduct {
   type: string;
   description?: string;
   stock: number;
+  size?: string;
+  quantity: number;
   sizes: string[];
   rating: number; // Average rating (0–5)
   ratingCount: number; // Total users who rated
@@ -30,15 +32,6 @@ export interface IProduct {
 export interface FilterOption {
   label: string;
   value: string;
-}
-
-export interface ICartItem {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  size: string;
-  quantity: number;
 }
 
 export interface OrderItem {

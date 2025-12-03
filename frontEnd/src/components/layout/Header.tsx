@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        <HeaderLoggedIn cartCount={0} userName={user?.name || ""} />
+        <HeaderLoggedIn userName={user?.name || ""} />
       </header>
     </div>
   );

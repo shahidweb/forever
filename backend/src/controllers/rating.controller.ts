@@ -47,7 +47,7 @@ export const addRating = async (req: AuthRequest, res: Response) => {
     product.rating = Number((total / product.ratingCount).toFixed(1));
 
     await product.save();
-    res.status(200).json({message: "Rating added successfully", product});
+    res.status(200).json(product);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

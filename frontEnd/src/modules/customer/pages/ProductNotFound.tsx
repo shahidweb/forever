@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
 
-const ProductNotFound = () => {
+const ProductNotFound = ({ title = "Product Not Found" }) => {
   return (
     <div className="flex flex-col items-center justify-center h-[70vh] text-center px-4">
       {/* bg-gray-50 border border-gray-200 rounded-2xl shadow-sm  */}
       <div className="p-10 max-w-md w-full">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Product Not Found
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">{title}</h1>
         <p className="text-gray-500 mb-6">
           Sorry, the product you're looking for doesn't exist or has been
           removed.

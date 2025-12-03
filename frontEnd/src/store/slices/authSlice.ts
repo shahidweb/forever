@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "../../services/authServices";
+import { decodeToken } from "../../shared/utils/decodeToken";
 
 interface User {
+  id: string;
   name: string;
   email: string;
   role: string;
+  exp: number;
 }
 
 interface AuthState {
@@ -14,8 +17,13 @@ interface AuthState {
   error: string | null;
 }
 
+const getCurrentUsers = () => {
+  const token = localStorage.getItem("token") || "null";
+  return token ? decodeToken(token) : null;
+};
+
 const initialState: AuthState = {
-  user: JSON.parse(localStorage.getItem("user") || "null"),
+  user: getCurrentUsers(),
   token: localStorage.getItem("token"),
   loading: false,
   error: null,
@@ -29,7 +37,6 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
-      localStorage.removeItem("user");
       localStorage.removeItem("token");
     },
   },
@@ -53,11 +60,9 @@ const authSlice = createSlice({
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
-      const { token, user } = action.payload.data;
-      state.user = user;
+      const { token } = action.payload.data;
       state.token = token;
-
-      localStorage.setItem("user", JSON.stringify(user));
+      state.user = decodeToken(token);
       localStorage.setItem("token", token);
     });
     builder.addCase(loginUser.rejected, (state, action) => {
