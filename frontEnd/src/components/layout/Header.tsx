@@ -38,7 +38,7 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        <HeaderLoggedIn userName={user?.name || ""} />
+        <HeaderLoggedIn currentUser={user} />
       </header>
     </div>
   );

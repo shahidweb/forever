@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { loginUser, registerUser } from "../../services/authServices";
 import { decodeToken } from "../../shared/utils/decodeToken";
 
-interface User {
+export interface IUser {
   id: string;
   name: string;
   email: string;
@@ -11,7 +11,7 @@ interface User {
 }
 
 interface AuthState {
-  user: User | null;
+  user: IUser | null;
   token: string | null;
   loading: boolean;
   error: string | null;
