@@ -1,15 +1,15 @@
-import { Search, ShoppingCart, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../store/slices/authSlice";
+import CartItems from "./CartItems";
 
 interface HeaderProps {
-  cartCount: number;
   userName: string;
 }
 
-const HeaderLoggedIn: React.FC<HeaderProps> = ({ cartCount, userName }) => {
+const HeaderLoggedIn: React.FC<HeaderProps> = ({ userName }) => {
   const [open, setOpen] = useState(false);
   const initials = userName?.charAt(0).toUpperCase();
   const dispatch = useDispatch();
@@ -23,37 +23,23 @@ const HeaderLoggedIn: React.FC<HeaderProps> = ({ cartCount, userName }) => {
 
   return (
     <div className="flex items-center gap-8 text-gray-800 relative">
-      {/* Search */}
-      {/* <Link to="/search"> */}
       <Search className="w-5 h-5 hover:text-black transition" />
-      {/* </Link> */}
 
-      {/* Cart */}
-      {userName && (
-        <Link to="/cart" className="relative">
-          <ShoppingCart className="w-6 h-6 hover:text-black transition" />
-
-          {cartCount > 0 && (
-            <span className="absolute -top-2 -right-3 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {cartCount}
-            </span>
-          )}
-        </Link>
-      )}
-
-      {/* Profile Dropdown */}
       {!userName && (
         <span className="cursor-pointer" onClick={() => navigator("/login")}>
           <User />
         </span>
       )}
       {userName && (
-        <button
-          className="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer border border-gray-400 text-sm font-semibold"
-          onClick={() => setOpen(!open)}
-        >
-          {initials}
-        </button>
+        <>
+          <CartItems />
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer border border-gray-400 text-sm font-semibold"
+            onClick={() => setOpen(!open)}
+          >
+            {initials}
+          </button>
+        </>
       )}
 
       {open && (

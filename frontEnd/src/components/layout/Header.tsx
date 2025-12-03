@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import { fetchAllCartItems } from "../../services/cartServices";
-import { useAppDispatch, useAppSelector } from "../../shared/hooks/reduxHooks";
+import { useAppSelector } from "../../shared/hooks/reduxHooks";
 import HeaderLoggedIn from "./HeaderLoggedIn";
 
 const Header: React.FC = () => {
   const { user } = useAppSelector((state) => state.auth);
-  const { items } = useAppSelector((state) => state.cart);
-  const dispatch = useAppDispatch();
 
   const menuData = [
     { id: 1, link: "/", value: "HOME" },
@@ -15,10 +12,6 @@ const Header: React.FC = () => {
     { id: 3, link: "/about", value: "ABOUT" },
     { id: 4, link: "/contact", value: "CONTACT" },
   ];
-
-  useEffect(() => {
-    dispatch(fetchAllCartItems());
-  }, []);
 
   return (
     <div className="bg-white shadow-sm">
@@ -45,7 +38,7 @@ const Header: React.FC = () => {
           ))}
         </nav>
 
-        <HeaderLoggedIn cartCount={items.length} userName={user?.name || ""} />
+        <HeaderLoggedIn userName={user?.name || ""} />
       </header>
     </div>
   );
