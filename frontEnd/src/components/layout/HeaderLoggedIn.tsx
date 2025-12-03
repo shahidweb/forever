@@ -2,16 +2,17 @@ import { Search, User } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../../store/slices/authSlice";
+import { RoleType } from "../../shared/types/constant";
+import { logout, type IUser } from "../../store/slices/authSlice";
 import CartItems from "./CartItems";
 
 interface HeaderProps {
-  userName: string;
+  currentUser: IUser | null;
 }
 
-const HeaderLoggedIn: React.FC<HeaderProps> = ({ userName }) => {
+const HeaderLoggedIn: React.FC<HeaderProps> = ({ currentUser }) => {
   const [open, setOpen] = useState(false);
-  const initials = userName?.charAt(0).toUpperCase();
+  const initials = currentUser?.name?.charAt(0).toUpperCase();
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
@@ -25,14 +26,14 @@ const HeaderLoggedIn: React.FC<HeaderProps> = ({ userName }) => {
     <div className="flex items-center gap-8 text-gray-800 relative">
       <Search className="w-5 h-5 hover:text-black transition" />
 
-      {!userName && (
+      {!currentUser?.id && (
         <span className="cursor-pointer" onClick={() => navigator("/login")}>
           <User />
         </span>
       )}
-      {userName && (
+      {currentUser?.id && (
         <>
-          <CartItems />
+          {currentUser.role === RoleType.USER && <CartItems />}
           <button
             className="w-8 h-8 flex items-center justify-center rounded-full cursor-pointer border border-gray-400 text-sm font-semibold"
             onClick={() => setOpen(!open)}
