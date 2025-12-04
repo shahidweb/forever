@@ -1,4 +1,4 @@
-import type { FilterOption, OrderItem } from "./interfaces";
+import type { FilterOption } from "./interfaces";
 
 export const RoleType = {
   ADMIN: "admin",
@@ -42,39 +42,18 @@ export const filterTypes: FilterOption[] = [
 
 export const productSizes = ["S", "M", "L", "XL", "XXL"];
 
+export const DeliveryStatus: any = {
+  pending: "Pending",
+  processing: "Processing",
+  paid: "Paid",
+  shipped: "Shipped",
+  "out_of_delivery:": "Out of Delivery",
+  delivered: "Delivered",
+  cancelled: "Cancelled",
+};
 
-export const orders: OrderItem[] = [
-  {
-    id: 1,
-    name: "Men Round Neck Pure Cotton T-shirt",
-    price: 54,
-    quantity: 1,
-    size: "XL",
-    date: "Fri Aug 16 2024",
-    payment: "COD",
-    status: "Order Placed",
-    image: "/src/assets/img/denimJacket.png",
-  },
-  {
-    id: 2,
-    name: "Men Round Neck Pure Cotton T-shirt",
-    price: 80,
-    quantity: 1,
-    size: "S",
-    date: "Fri Aug 16 2024",
-    payment: "COD",
-    status: "Order Placed",
-    image: "/src/assets/img/casualCotton.png",
-  },
-  {
-    id: 3,
-    name: "Men Round Neck Pure Cotton T-shirt",
-    price: 80,
-    quantity: 2,
-    size: "M",
-    date: "Fri Aug 16 2024",
-    payment: "COD",
-    status: "Order Placed",
-    image: "/src/assets/img/StripedEveningGown.png",
-  }
-];
+export const PaymentMethod: any = {
+  stripe: "Stripe",
+  razorpay: "Razorpay",
+  cod: "COD",
+};

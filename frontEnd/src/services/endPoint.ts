@@ -4,4 +4,5 @@ export const EndPoint_URL = {
   PRODUCT: "/products",
   RATING: "/rating",
   CART: "/cart",
+  ORDER: "/order",
 };

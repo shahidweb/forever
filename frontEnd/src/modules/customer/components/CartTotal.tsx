@@ -1,38 +1,28 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Controller } from "react-hook-form";
 import Button from "../../../components/ui/Button";
 import HeadingBanner from "../../../components/ui/HeadingBanner";
 import { useAppSelector } from "../../../shared/hooks/reduxHooks";
-
-// interface ICartTotal {
-//   isPaymentShow?: boolean;
-//   items: IProduct[];
-// }
+import { cartTotalCal } from "../../../shared/utils/cartCal";
 
 interface ITotalCart {
-  subTotal: number;
+  subtotal: number;
   shipping: number;
   total: number;
 }
 
-function CartTotal({ isPaymentShow = false }) {
-  const [paymentMethod, setPaymentMethod] = useState<any>();
+interface ICartTotalProps {
+  isPaymentShow?: boolean;
+  control?: any;
+}
+
+function CartTotal({ isPaymentShow = false, control }: ICartTotalProps) {
   const [cartItems, setCartItems] = useState<ITotalCart>({} as ITotalCart);
   const { items } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     if (items && items.length == 0) return;
-
-    const subTotal = items.reduce(
-      (sum, item) => sum + item.productId.price * (item.quantity ?? 1),
-      0
-    );
-
-    const updated = {
-      subTotal: subTotal,
-      shipping: 11,
-      total: subTotal + 11,
-    };
+    const updated = cartTotalCal(items);
     setCartItems(updated);
   }, [items]);
 
@@ -44,7 +34,7 @@ function CartTotal({ isPaymentShow = false }) {
           className={`flex justify-between text-gray-700 pb-2 mb-3 border-b border-gray-200`}
         >
           <span>Subtotal</span>
-          <span>${cartItems.subTotal}</span>
+          <span>${cartItems.subtotal}</span>
         </div>
         <div
           className={`flex justify-between text-gray-700 pb-2 mb-3 border-b border-gray-200`}
@@ -65,51 +55,56 @@ function CartTotal({ isPaymentShow = false }) {
         <section id="payment_section">
           <HeadingBanner title="PAYMENT" subtitle="METHOD" classes="text-sm" />
           <div className="flex flex-wrap gap-3 mb-6 justify-between">
-            <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
-              <input
-                type="radio"
-                name="payment"
-                value="stripe"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                checked={paymentMethod === "stripe"}
-              />
-              <img
-                src="/src/assets/img/stripe_logo.png"
-                alt="stripe"
-                className="h-5"
-              />
-            </label>
+            <Controller
+              name="paymentMethod"
+              control={control}
+              render={({ field }) => (
+                <>
+                  <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
+                    <input
+                      {...field}
+                      type="radio"
+                      value="stripe"
+                      checked={field.value === "stripe"}
+                    />
+                    <img
+                      src="/src/assets/img/stripe_logo.png"
+                      alt="stripe"
+                      className="h-5"
+                    />
+                  </label>
 
-            <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
-              <input
-                type="radio"
-                name="payment"
-                value="razorpay"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                checked={paymentMethod === "razorpay"}
-              />
-              <img
-                src="/src/assets/img/razorpay_logo.svg"
-                alt="razorpay"
-                className="h-5"
-              />
-            </label>
+                  <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
+                    <input
+                      {...field}
+                      type="radio"
+                      value="razorpay"
+                      checked={field.value === "razorpay"}
+                    />
+                    <img
+                      src="/src/assets/img/razorpay_logo.svg"
+                      alt="razorpay"
+                      className="h-5"
+                    />
+                  </label>
 
-            <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
-              <input
-                type="radio"
-                name="payment"
-                value="cod"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                checked={paymentMethod === "cod"}
-              />
-              <span className="text-sm font-medium">CASH ON DELIVERY</span>
-            </label>
+                  <label className="flex items-center gap-2 border p-3 rounded-md cursor-pointer">
+                    <input
+                      {...field}
+                      type="radio"
+                      value="cod"
+                      checked={field.value === "cod"}
+                    />
+                    <span className="text-sm font-medium">
+                      CASH ON DELIVERY
+                    </span>
+                  </label>
+                </>
+              )}
+            />
           </div>
           <div className="text-end">
-            <Link to={"/orders"}>
-              <Button value="PLACE ORDER" />
-            </Link>
+            <Button value="PLACE ORDER" type="submit" />
           </div>
         </section>
       )}

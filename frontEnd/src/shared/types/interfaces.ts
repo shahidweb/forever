@@ -33,15 +33,21 @@ export interface FilterOption {
   label: string;
   value: string;
 }
-
-export interface OrderItem {
-  id: number;
-  name: string;
-  price: number;
+export interface IOrderItem {
   quantity: number;
   size: string;
-  date: string;
-  payment: string;
-  status: string;
+  name: string;
+  price: number;
   image: string;
+}
+
+export interface IOrder {
+  id: string;
+  createdAt: string; // ISO 8601 Date string
+  paymentMethod: string;
+  status: string;
+  subtotal: number;
+  shipping: number;
+  total: number;
+  items: IOrderItem[];
 }
