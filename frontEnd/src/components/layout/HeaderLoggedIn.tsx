@@ -46,13 +46,6 @@ const HeaderLoggedIn: React.FC<HeaderProps> = ({ currentUser }) => {
       {open && (
         <div className="absolute right-0 top-12 bg-white border rounded-md shadow-lg w-40 p-2 z-50 ">
           <Link
-            to="/account"
-            onClick={() => setOpen(false)}
-            className="block px-4 py-2 hover:bg-gray-100 rounded"
-          >
-            My Account
-          </Link>
-          <Link
             to="/orders"
             onClick={() => setOpen(false)}
             className="block px-4 py-2 hover:bg-gray-100 rounded"
