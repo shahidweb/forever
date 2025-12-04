@@ -17,11 +17,11 @@ function RatingStar({ products, setRating }: IStarProps) {
     <div>
       <Rating
         onClick={(rate) => setRating(rate)}
-        initialValue={products.rating}
+        initialValue={Math.ceil(products.rating * 2) / 2}
         size={25}
         readonly={isCurrentUser}
         SVGstyle={{ display: "inline-block" }}
-        allowFraction={false} // whole-star only
+        allowFraction={true} // whole-star only
       />
     </div>
   );

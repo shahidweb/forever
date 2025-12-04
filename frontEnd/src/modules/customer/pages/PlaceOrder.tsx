@@ -3,7 +3,7 @@ import CartTotal from "../components/CartTotal";
 
 const PlaceOrder: React.FC = () => {
   return (
-    <div className="max-w-7xl mx-auto flex flex-wrap justify-between pt-8">
+    <div className="max-w-7xl mx-auto flex flex-wrap justify-between pt-8 mb-8">
       <div className="w-1/2">
         <HeadingBanner title="DELIVERY" subtitle="INFORMATION" />
         <form className="space-y-4">
