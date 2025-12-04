@@ -8,6 +8,7 @@ export type TDeliveryStatus =
   | "processing"
   | "paid"
   | "shipped"
+  | "out of delivery"
   | "delivered"
   | "cancelled";
 

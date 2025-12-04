@@ -62,6 +62,7 @@ export const getUserOrders = async (req: AuthRequest, res: Response) => {
       .sort({ createdAt: -1 });
 
     const result = orders.map((order: any) => ({
+      id:order.id,
       createdAt: order.createdAt,
       paymentMethod: order.paymentMethod,
       status: order.status,
