@@ -8,6 +8,7 @@ import {
 import { DeliveryStatus, PaymentMethod } from "../../../shared/types/constant";
 import type { IOrder } from "../../../shared/types/interfaces";
 import { formatIsoDate } from "../../../shared/utils/dateFormte";
+import ProductNotFound from "./ProductNotFound";
 
 const MyOrders: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -21,12 +22,19 @@ const MyOrders: React.FC = () => {
     dispatch(getUserOrderHistory());
   };
 
+  if (data.length == 0)
+    return (
+      <span>
+        <ProductNotFound title="Your Order history is empty" />
+      </span>
+    );
+
   return (
     <div className="max-w-7xl mx-auto pt-10">
       <HeadingBanner title="My" subtitle="Orders" />
       <div className="border-t border-gray-200"></div>
 
-      <div className="flex flex-col divide-y">
+      <div className="flex flex-col divide-y divide-gray-200 border-gray-200 overflow-y-auto h-96">
         {data.length &&
           data.map((order: IOrder) => (
             <>

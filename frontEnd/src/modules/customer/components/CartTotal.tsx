@@ -12,8 +12,8 @@ interface ITotalCart {
 }
 
 interface ICartTotalProps {
-  isPaymentShow: boolean;
-  control: any;
+  isPaymentShow?: boolean;
+  control?: any;
 }
 
 function CartTotal({ isPaymentShow = false, control }: ICartTotalProps) {
