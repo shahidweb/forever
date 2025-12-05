@@ -21,7 +21,7 @@ function Home() {
   useEffect(() => {
     if (data?.length) {
       setProducts(data);
-      setSeller(data.filter((_, i) => i % 2 == 0));
+      setSeller(data.filter((product) => product.bestSeller));
     } else {
       dispatch(fetchAllProductList());
     }
@@ -29,7 +29,6 @@ function Home() {
 
   if (loading) return <Loader />;
   if (error) return <h2 className="text-red-500 text-center">{error}</h2>;
-
 
   return (
     <div className="p-8">

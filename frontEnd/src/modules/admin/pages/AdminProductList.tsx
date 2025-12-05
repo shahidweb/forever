@@ -21,7 +21,7 @@ const AdminProductList: React.FC = () => {
     dispatch(fetchAllProductList());
   }, []);
   return (
-    <div className="p-6 bg-white">
+    <div className="p-6">
       <h2 className="text-xl font-semibold mb-4">All Products List</h2>
 
       <div className="overflow-x-auto">
