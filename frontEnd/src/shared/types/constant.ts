@@ -45,7 +45,7 @@ export const productSizes = ["S", "M", "L", "XL", "XXL"];
 export const DeliveryStatus: any = {
   processing: "Processing",
   shipped: "Shipped",
-  "out_of_delivery:": "Out of Delivery",
+  out_of_delivery: "Out of Delivery",
   delivered: "Delivered",
   cancelled: "Cancelled",
 };

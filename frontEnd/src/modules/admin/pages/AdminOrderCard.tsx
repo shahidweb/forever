@@ -101,7 +101,7 @@ const AdminOrderCard: React.FC = () => {
                   >
                     <option value="processing">Order Placed</option>
                     <option value="shipped">Shipped</option>
-                    <option value="out of delivery">Out for Delivery</option>
+                    <option value="out_of_delivery">Out for Delivery</option>
                     <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
                   </select>

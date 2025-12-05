@@ -40,7 +40,7 @@ const MyOrders: React.FC = () => {
             <>
               {order.items.map((item: any) => (
                 <div
-                  key={order.id}
+                  key={order._id}
                   className="py-6 flex justify-between items-center"
                 >
                   <div className="flex items-center gap-5">

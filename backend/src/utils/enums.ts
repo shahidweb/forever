@@ -6,7 +6,7 @@ export enum ERoleType {
 export type TDeliveryStatus =
   | "processing"
   | "shipped"
-  | "out of delivery"
+  | "out_of_delivery"
   | "delivered"
   | "cancelled";
 
@@ -17,7 +17,7 @@ export type TPaymentStatus = "pending" | "done";
 export const deliveryStatus = [
   "processing",
   "shipped",
-  "out of delivery",
+  "out_of_delivery",
   "delivered",
   "cancelled",
 ];

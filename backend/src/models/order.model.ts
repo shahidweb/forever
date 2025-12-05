@@ -86,7 +86,7 @@ export const OrderSchema = new Schema<IOrder>(
       enum: [
         "processing",
         "shipped",
-        "out of delivery",
+        "out_of_delivery",
         "delivered",
         "cancelled",
       ],
