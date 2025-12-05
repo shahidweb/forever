@@ -2,6 +2,7 @@ import { Response } from "express";
 import { AuthRequest } from "../middlewares/auth";
 import Cart from "../models/cart.model";
 import { Order } from "../models/order.model";
+import { deliveryStatus } from "../utils/enums";
 
 export const placeOrder = async (req: AuthRequest, res: Response) => {
   try {
@@ -38,7 +39,8 @@ export const placeOrder = async (req: AuthRequest, res: Response) => {
       subtotal,
       shipping,
       total,
-      status: paymentMethod !== "cod" ? "pending" : "processing",
+      status: "processing",
+      paymentStatus: paymentMethod !== "cod" ? "pending" : "done",
     });
 
     // Clear cart
@@ -62,10 +64,11 @@ export const getUserOrders = async (req: AuthRequest, res: Response) => {
       .sort({ createdAt: -1 });
 
     const result = orders.map((order: any) => ({
-      id:order.id,
+      id: order.id,
       createdAt: order.createdAt,
       paymentMethod: order.paymentMethod,
       status: order.status,
+      paymentStatus: order.paymentStatus,
       subtotal: order.subtotal,
       shipping: order.shipping,
       total: order.total,
@@ -86,6 +89,36 @@ export const getUserOrders = async (req: AuthRequest, res: Response) => {
 // admin
 export const getAllOrders = async (req: any, res: Response) => {
   try {
+    const orders = await Order.find()
+      .populate("items.productId")
+      .populate("userId", "name email")
+      .sort({ createdAt: -1 });
+
+    return res.json({ orders });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const updateOrderStatus = async (req: AuthRequest, res: Response) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+
+    if (!deliveryStatus.includes(status)) {
+      return res.status(400).json({ error: "Invalid status value" });
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { status, paymentStatus: status !== "processing" ? "done" : "pending" },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
     const orders = await Order.find()
       .populate("items.productId")
       .populate("userId", "name email")

@@ -9,18 +9,6 @@ import {
 import { cartTotalCal } from "../../../shared/utils/cartCal";
 import CartTotal from "../components/CartTotal";
 
-export interface IAddress {
-  firstName: string;
-  lastName: string;
-  email: string;
-  street: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  country: string;
-  phone: string;
-}
-
 const PlaceOrder: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

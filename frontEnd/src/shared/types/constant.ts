@@ -43,13 +43,15 @@ export const filterTypes: FilterOption[] = [
 export const productSizes = ["S", "M", "L", "XL", "XXL"];
 
 export const DeliveryStatus: any = {
-  pending: "Pending",
   processing: "Processing",
-  paid: "Paid",
   shipped: "Shipped",
-  "out_of_delivery:": "Out of Delivery",
+  out_of_delivery: "Out of Delivery",
   delivered: "Delivered",
   cancelled: "Cancelled",
+};
+export const PaymentStatus: any = {
+  pending: "Pending",
+  done: "Done",
 };
 
 export const PaymentMethod: any = {

@@ -4,12 +4,20 @@ export enum ERoleType {
 }
 
 export type TDeliveryStatus =
-  | "pending"
   | "processing"
-  | "paid"
   | "shipped"
-  | "out of delivery"
+  | "out_of_delivery"
   | "delivered"
   | "cancelled";
 
 export type TPaymentMethod = "stripe" | "razorpay" | "cod";
+
+export type TPaymentStatus = "pending" | "done";
+
+export const deliveryStatus = [
+  "processing",
+  "shipped",
+  "out_of_delivery",
+  "delivered",
+  "cancelled",
+];
