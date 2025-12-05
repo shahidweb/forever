@@ -22,12 +22,7 @@ const AdminAddProduct = () => {
   const [sizes, setSizes] = useState<string[]>([]);
   const [images, setImages] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<IInputProduct>();
+  const { register, reset, handleSubmit } = useForm<IInputProduct>();
 
   const handleSizeToggle = (size: string) => {
     setSizes((prev) =>

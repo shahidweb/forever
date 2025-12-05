@@ -7,7 +7,7 @@ const ProtectedAdmin = ({ children }: { children: JSX.Element }) => {
   const { user } = useAppSelector((state) => state.auth);
 
   if (!user) return <Navigate to="/admin/login" replace />;
-  if (user.role !== RoleType.ADMIN) return <Navigate to="/not-allowed" replace />;
+  if (user.role !== RoleType.ADMIN) return <Navigate to="/" replace />;
 
   return children;
 };
