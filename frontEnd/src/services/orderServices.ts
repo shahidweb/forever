@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { EndPoint_URL } from "./endPoint";
 import api from "./api";
+import { EndPoint_URL } from "./endPoint";
 
 export const placeOrder = createAsyncThunk(
   `${EndPoint_URL.ORDER}/placeOrder`,
@@ -19,6 +19,35 @@ export const getUserOrderHistory = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await api.get(`${EndPoint_URL.ORDER}`);
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+export const allOrderHistory = createAsyncThunk(
+  `${EndPoint_URL.ORDER}/allOrder`,
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await api.get(`${EndPoint_URL.ORDER}/allOrder`);
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+export const updateOrderStatus = createAsyncThunk(
+  `${EndPoint_URL.ORDER_Update_Status}/updatedStatus`,
+  async (payload: any, { rejectWithValue }) => {
+    try {
+      const res = await api.patch(
+        `${EndPoint_URL.ORDER_Update_Status}/${payload.orderId}`,
+        {
+          status: payload.status,
+        }
+      );
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.message);

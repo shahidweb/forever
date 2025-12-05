@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserOrderHistory, placeOrder } from "../../services/orderServices";
+import {
+  allOrderHistory,
+  getUserOrderHistory,
+  placeOrder,
+  updateOrderStatus,
+} from "../../services/orderServices";
 import type { IOrder } from "../../shared/types/interfaces";
 
 interface IOrderState {
@@ -39,6 +44,17 @@ const orderSlice = createSlice({
       state.error = null;
       state.loading = false;
       state.data = action.payload;
+    });
+
+    builder.addCase(allOrderHistory.fulfilled, (state, action) => {
+      state.error = null;
+      state.loading = false;
+      state.data = action.payload.orders;
+    });
+    builder.addCase(updateOrderStatus.fulfilled, (state, action) => {
+      state.error = null;
+      state.loading = false;
+      state.data = action.payload.orders;
     });
   },
 });

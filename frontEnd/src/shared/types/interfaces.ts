@@ -41,13 +41,33 @@ export interface IOrderItem {
   image: string;
 }
 
+export interface IProductItem {
+  quantity: number;
+  size: string;
+  productId: IProduct;
+}
+
 export interface IOrder {
-  id: string;
+  _id: string;
   createdAt: string; // ISO 8601 Date string
   paymentMethod: string;
   status: string;
+  paymentStatus:string;
   subtotal: number;
   shipping: number;
   total: number;
-  items: IOrderItem[];
+  items: IProductItem[];
+  address: IAddress;
+}
+
+export interface IAddress {
+  firstName: string;
+  lastName: string;
+  email: string;
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+  country: string;
+  phone: string;
 }

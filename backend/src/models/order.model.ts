@@ -1,5 +1,9 @@
 import { Schema, model, Document } from "mongoose";
-import { TDeliveryStatus, TPaymentMethod } from "../utils/enums";
+import {
+  TDeliveryStatus,
+  TPaymentMethod,
+  TPaymentStatus,
+} from "../utils/enums";
 
 export interface IOrderItem {
   productId: Schema.Types.ObjectId;
@@ -28,6 +32,7 @@ export interface IOrder extends Document {
   shipping: number;
   total: number;
   status: TDeliveryStatus;
+  paymentStatus: TPaymentStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -79,13 +84,17 @@ export const OrderSchema = new Schema<IOrder>(
     status: {
       type: String,
       enum: [
-        "pending",
         "processing",
-        "paid",
         "shipped",
+        "out of delivery",
         "delivered",
         "cancelled",
       ],
+      default: "processing",
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "done"],
       default: "pending",
     },
   },
