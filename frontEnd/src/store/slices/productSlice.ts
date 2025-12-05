@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  deleteProduct,
   fetchAllProductList,
   fetchProductById,
   setProductRating,
@@ -62,6 +63,10 @@ const productSlice = createSlice({
     builder.addCase(setProductRating.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload as string;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = action.payload;
     });
   },
 });

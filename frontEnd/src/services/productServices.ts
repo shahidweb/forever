@@ -44,3 +44,15 @@ export const setProductRating = createAsyncThunk(
     }
   }
 );
+
+export const deleteProduct = createAsyncThunk(
+  `${EndPoint_URL.PRODUCT}/delete`,
+  async (id: string, { rejectWithValue }) => {
+    try {
+      const res = await api.delete(`${EndPoint_URL.PRODUCT}/${id}`);
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

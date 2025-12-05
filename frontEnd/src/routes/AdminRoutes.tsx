@@ -4,7 +4,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import AddItems from "../modules/admin/pages/AddItems";
 import AdminOrderCard from "../modules/admin/pages/AdminOrderCard";
 import Dashboard from "../modules/admin/pages/Dashboard";
-import ListItems from "../modules/admin/pages/ListItems";
+import AdminProductList from "../modules/admin/pages/AdminProductList";
 import Login from "../modules/admin/pages/Login";
 import ProtectedAdmin from "./ProtectedAdmin";
 
@@ -22,7 +22,7 @@ const AdminRoutes = () => {
       >
         <Route index element={<Dashboard />} />
         <Route path="add-product" element={<AddItems />} />
-        <Route path="products" element={<ListItems />} />
+        <Route path="products" element={<AdminProductList />} />
         <Route path="orders" element={<AdminOrderCard />} />
       </Route>
     </Routes>
