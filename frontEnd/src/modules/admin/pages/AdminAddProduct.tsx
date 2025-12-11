@@ -21,6 +21,7 @@ export interface IInputProduct {
 const AdminAddProduct = () => {
   const [sizes, setSizes] = useState<string[]>([]);
   const [images, setImages] = useState<any[]>([]);
+  const [preImage, setPreImage] = useState<any[]>([]);
   const dispatch = useAppDispatch();
   const { register, reset, handleSubmit } = useForm<IInputProduct>();
 
@@ -35,8 +36,13 @@ const AdminAddProduct = () => {
     if (!file) return;
 
     const newImages = [...images];
-    newImages[index] = URL.createObjectURL(file);
+    newImages[index] = file;
     setImages(newImages);
+    
+    //preivew images
+    const previewImg = [...preImage];
+    previewImg[index] = URL.createObjectURL(file);
+    setPreImage(previewImg);
   };
 
   const onSubmit = (data: IInputProduct) => {
@@ -44,6 +50,9 @@ const AdminAddProduct = () => {
     dispatch(addProduct(payload)).then((res) => {
       if (res.meta.requestStatus === "fulfilled") {
         reset();
+        setImages([]);
+        setSizes([]);
+        setPreImage([]);
       }
     });
   };
@@ -79,9 +88,9 @@ const AdminAddProduct = () => {
             key={i}
             className="w-24 h-24 border border-gray-200 rounded-lg flex flex-col items-center justify-center cursor-pointer bg-gray-50 hover:bg-gray-100"
           >
-            {images[i] ? (
+            {preImage[i] ? (
               <img
-                src={images[i]}
+                src={preImage[i]}
                 alt="preview"
                 className="w-full h-full object-cover rounded-lg"
               />

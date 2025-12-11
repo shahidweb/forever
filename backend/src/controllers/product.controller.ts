@@ -33,10 +33,7 @@ export const addProduct = async (req: Request, res: Response) => {
     const sizes = req.body?.sizes && JSON.parse(req.body?.sizes);
     const data = { ...req.body, sizes, images: imageUrls };
     const product = await Product.create(data);
-    res.status(200).json({
-      message: "Product added successfully",
-      product,
-    });
+    res.status(200).json(product);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
