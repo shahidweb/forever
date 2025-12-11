@@ -9,6 +9,7 @@ import {
 import { cartTotalCal } from "../../../shared/utils/cartCal";
 import { handleRazorpayPayment } from "../../../shared/utils/razorPayment";
 import CartTotal from "../components/CartTotal";
+import { clearAll } from "../../../store/slices/cartSlice";
 
 const PlaceOrder: React.FC = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const PlaceOrder: React.FC = () => {
       const res: any = await handleRazorpayPayment(updated.total);
       payload = {
         ...payload,
-        paymentInfo: {...res},
+        paymentInfo: { ...res },
       };
       console.log(payload);
     } else {
@@ -42,6 +43,7 @@ const PlaceOrder: React.FC = () => {
     }
     dispatch(placeOrder(payload)).then((res: any) => {
       if (res.meta.requestStatus === "fulfilled") {
+        dispatch(clearAll());
         navigate("/orders");
         reset();
       }

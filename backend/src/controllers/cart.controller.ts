@@ -49,14 +49,17 @@ export const deleteCart = async (req: AuthRequest, res: Response) => {
     const { productId, size } = req.body;
     const userId = req.user.id;
 
-    const cart = await Cart.findOne({ userId }).populate("items.productId");
+    const cart = await Cart.findOne({ userId });
     if (!cart) return res.status(400).json({ message: "User id is not found" });
     cart.items = cart?.items.filter(
       (item: ICartItem) =>
         !(item.productId.toString() === productId && item.size === size)
     );
     await cart?.save();
-    return res.status(200).json(cart?.items || []);
+    const cartItems = await Cart.findOne({ userId }).populate(
+      "items.productId"
+    );
+    return res.status(200).json(cartItems?.items || []);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
