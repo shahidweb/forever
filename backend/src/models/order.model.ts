@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Document, Schema, model } from "mongoose";
 import {
   TDeliveryStatus,
   TPaymentMethod,
@@ -23,6 +23,12 @@ export interface IAddress {
   phone: string;
 }
 
+export interface IPaymentInfo {
+  orderId: string;
+  paymentId: string;
+  signature: string;
+}
+
 export interface IOrder extends Document {
   userId: Schema.Types.ObjectId;
   items: IOrderItem[];
@@ -33,9 +39,19 @@ export interface IOrder extends Document {
   total: number;
   status: TDeliveryStatus;
   paymentStatus: TPaymentStatus;
+  paymentInfo: IPaymentInfo;
   createdAt: Date;
   updatedAt: Date;
 }
+
+const OrderPaymentScehma = new Schema<IPaymentInfo>(
+  {
+    orderId: { type: String },
+    paymentId: { type: String },
+    signature: { type: String },
+  },
+  { _id: false }
+);
 
 const OrderItemSchema = new Schema<IOrderItem>(
   {
@@ -96,6 +112,9 @@ export const OrderSchema = new Schema<IOrder>(
       type: String,
       enum: ["pending", "done"],
       default: "pending",
+    },
+    paymentInfo: {
+      type: OrderPaymentScehma,
     },
   },
   { timestamps: true }

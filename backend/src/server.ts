@@ -7,6 +7,7 @@ import cartRoutes from "./routes/cart.routes";
 import productRoutes from "./routes/product.routes";
 import ratingRoutes from "./routes/rating.routes";
 import orderRoutes from "./routes/order.routes";
+import paymentRoutes from "./routes/payment.routes";
 
 dotenv.config();
 connectDB();
@@ -21,6 +22,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/rating", ratingRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/payment", paymentRoutes);
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {

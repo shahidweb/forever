@@ -7,7 +7,8 @@ import { deliveryStatus } from "../utils/enums";
 export const placeOrder = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.user.id;
-    const { address, paymentMethod, subtotal, shipping, total } = req.body;
+    const { address, paymentMethod, subtotal, shipping, total, paymentInfo } =
+      req.body;
 
     if (!address || !paymentMethod) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -39,6 +40,7 @@ export const placeOrder = async (req: AuthRequest, res: Response) => {
       subtotal,
       shipping,
       total,
+      paymentInfo,
       status: "processing",
       paymentStatus: paymentMethod !== "cod" ? "pending" : "done",
     });

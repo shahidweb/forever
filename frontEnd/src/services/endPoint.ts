@@ -5,5 +5,6 @@ export const EndPoint_URL = {
   RATING: "/rating",
   CART: "/cart",
   ORDER: "/order",
+  PAYMENT: "/payment/create-order",
   ORDER_Update_Status: "/order/update-status",
 };

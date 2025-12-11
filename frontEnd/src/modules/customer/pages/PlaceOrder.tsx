@@ -7,6 +7,7 @@ import {
   useAppSelector,
 } from "../../../shared/hooks/reduxHooks";
 import { cartTotalCal } from "../../../shared/utils/cartCal";
+import { handleRazorpayPayment } from "../../../shared/utils/razorPayment";
 import CartTotal from "../components/CartTotal";
 
 const PlaceOrder: React.FC = () => {
@@ -15,16 +16,30 @@ const PlaceOrder: React.FC = () => {
   const { register, handleSubmit, control, reset } = useForm();
   const { items } = useAppSelector((state) => state.cart);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const { paymentMethod } = data;
     delete data.paymentMethod;
     if (items && items.length == 0) return;
+
     const updated = cartTotalCal(items);
-    const payload = {
+    let payload: any = {
       address: data,
-      paymentMethod: paymentMethod,
+      paymentMethod,
       ...updated,
     };
+
+    if (paymentMethod === "stripe") {
+      console.log("stripe");
+    } else if (paymentMethod === "razorpay") {
+      const res: any = await handleRazorpayPayment(updated.total);
+      payload = {
+        ...payload,
+        paymentInfo: {...res},
+      };
+      console.log(payload);
+    } else {
+      console.log("cod");
+    }
     dispatch(placeOrder(payload)).then((res: any) => {
       if (res.meta.requestStatus === "fulfilled") {
         navigate("/orders");

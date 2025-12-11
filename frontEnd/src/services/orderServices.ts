@@ -14,6 +14,15 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
+export const razorPayOrder = async (data: any) => {
+  try {
+    const res = await api.post(`${EndPoint_URL.PAYMENT}`, data);
+    return res.data;
+  } catch (error: any) {
+    return error.response?.data?.message;
+  }
+};
+
 export const getUserOrderHistory = createAsyncThunk(
   `${EndPoint_URL.ORDER}/GetUserOrders`,
   async (_, { rejectWithValue }) => {
