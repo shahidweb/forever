@@ -23,6 +23,7 @@ export interface IProduct {
   stock: number;
   size?: string;
   quantity: number;
+  bestSeller:boolean;
   sizes: string[];
   rating: number; // Average rating (0–5)
   ratingCount: number; // Total users who rated

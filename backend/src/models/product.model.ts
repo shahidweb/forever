@@ -14,6 +14,7 @@ export interface IProduct extends Document {
   description?: string;
   stock: number;
   sizes: string[];
+  bestSeller: boolean;
   rating: number; // Average rating (0–5)
   ratingCount: number; // Total users who rated
   ratings: IRating[]; // Detailed rating list
@@ -26,15 +27,16 @@ const productSchema: Schema = new Schema(
     images: {
       type: [String],
       required: true,
-      validate: {
-        validator: (val: string[]) => val.length === 5,
-        message: "Product must contain exactly 5 images",
-      },
+      // validate: {
+      //   validator: (val: string[]) => val.length >= 4,
+      //   message: "Product must contain more than 4 images",
+      // },
     },
     category: { type: String, required: true },
     type: { type: String, required: true },
     description: { type: String },
     stock: { type: Number, default: 0 },
+    bestSeller: { type: Boolean, default: false },
     sizes: {
       type: [String],
       enum: ["S", "M", "L", "XL", "XXL"],

@@ -61,7 +61,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
         .status(400)
         .json({ message: "Product Id is not found. Please try again!" });
     await Product.findByIdAndDelete(req.params.id);
-    res.status(201).json({ message: "Product deleteed" });
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.status(200).json(products);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
