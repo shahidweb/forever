@@ -28,7 +28,6 @@ const ProductDetails: React.FC = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log(product);
     if (product && product.images) {
       setMainImage(product.images[0]);
       setSelectedSize(product.sizes[0]);

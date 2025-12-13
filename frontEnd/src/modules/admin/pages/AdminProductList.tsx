@@ -13,7 +13,6 @@ const AdminProductList: React.FC = () => {
   const { data } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
   const onDelete = (id: string) => {
-    console.log(id);
     dispatch(deleteProduct(id));
   };
 
